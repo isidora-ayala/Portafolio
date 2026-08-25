@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>State Connect - Prototipo</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: Inter, sans-serif; background: #f8f9fb; color: #191c1e; padding: 24px; }
+  h1 { font-size: 24px; margin-bottom: 8px; }
+  p { color: #5a4136; margin-bottom: 24px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
+  .card { background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.06); transition: transform 0.2s; }
+  .card:hover { transform: translateY(-2px); }
+  .card img { width: 100%; height: 180px; object-fit: cover; display: block; }
+  .card-body { padding: 16px; }
+  .card-body h3 { font-size: 16px; margin-bottom: 4px; }
+  .card-body a { display: inline-block; margin-top: 8px; color: #ff6600; text-decoration: none; font-weight: 600; }
+  .card-body a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+  <h1>State Connect - Prototipo BancoEstado</h1>
+  <p>Selecciona una pantalla para visualizar:</p>
+  <div class="grid">
+    <div class="card">
+      <div class="card-body">
+        <h3>Inicio</h3>
+        <a href="inicio.html" target="_blank">Abrir →</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-body">
+        <h3>Robot Integrado</h3>
+        <a href="robot-integrado.html" target="_blank">Abrir →</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-body">
+        <h3>Composición Integrada</h3>
+        <a href="composicion.html" target="_blank">Abrir →</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-body">
+        <h3>Interactivo</h3>
+        <a href="interactivo.html" target="_blank">Abrir →</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-body">
+        <h3>Restauración de Diseño</h3>
+        <a href="restauracion.html" target="_blank">Abrir →</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-body">
+        <h3>Avatar Circular</h3>
+        <a href="avatar-circular.html" target="_blank">Abrir →</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-body">
+        <h3>Versión Original</h3>
+        <a href="version-original.html" target="_blank">Abrir →</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

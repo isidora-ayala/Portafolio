@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es" style=""><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>BancoEstado ChatBot - Asistente Virtual</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "outline": "#8e7164",
+                        "surface-container-highest": "#e1e2e4",
+                        "on-primary-fixed-variant": "#7c2e00",
+                        "secondary-fixed": "#d4e3ff",
+                        "on-tertiary-fixed": "#001d35",
+                        "surface-tint": "#a33e00",
+                        "tertiary-fixed": "#d0e4ff",
+                        "outline-variant": "#e3bfb1",
+                        "primary-fixed-dim": "#ffb596",
+                        "on-secondary-container": "#fdfcff",
+                        "error": "#ba1a1a",
+                        "secondary-fixed-dim": "#a4c9ff",
+                        "surface-container": "#edeef0",
+                        "inverse-primary": "#ffb596",
+                        "on-tertiary-container": "#003155",
+                        "primary": "#a33e00",
+                        "on-primary": "#ffffff",
+                        "surface-container-high": "#e7e8ea",
+                        "surface-container-low": "#f3f4f6",
+                        "secondary-container": "#0076d2",
+                        "on-secondary-fixed-variant": "#004883",
+                        "primary-fixed": "#ffdbcd",
+                        "surface": "#f8f9fb",
+                        "tertiary": "#0062a1",
+                        "on-surface-variant": "#5a4136",
+                        "on-error-container": "#93000a",
+                        "on-tertiary-fixed-variant": "#00497b",
+                        "inverse-surface": "#2e3132",
+                        "error-container": "#ffdad6",
+                        "secondary": "#005da8",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "on-primary-fixed": "#360f00",
+                        "on-primary-container": "#561d00",
+                        "primary-container": "#ff6600",
+                        "tertiary-fixed-dim": "#9ccaff",
+                        "on-background": "#191c1e",
+                        "inverse-on-surface": "#f0f1f3",
+                        "background": "#f8f9fb",
+                        "on-primary": "#ffffff",
+                        "surface-dim": "#d9dadc",
+                        "on-error": "#ffffff",
+                        "tertiary-container": "#009cfc",
+                        "on-surface": "#191c1e",
+                        "surface-bright": "#f8f9fb",
+                        "surface-variant": "#e1e2e4",
+                        "on-secondary-fixed": "#001c39"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "unit": "8px",
+                        "margin-mobile": "16px",
+                        "bubble-padding": "12px 16px",
+                        "sidebar-width": "280px",
+                        "max-content-width": "1200px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "headline-md-mobile": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-sm": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-md-mobile": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "display-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .chat-input-shadow {
+            box-shadow: 0px 4px 20px rgba(0,0,0,0.08);
+        }
+        .sidebar-transition {
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .floating-anim {
+            animation: floating 4s ease-in-out infinite;
+        }
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background overflow-hidden">
+<!-- TopAppBar -->
+<header class="bg-primary-container fixed top-0 w-full z-50 flex justify-between items-center h-16 px-margin-mobile md:px-gutter shadow-sm">
+<div class="flex items-center gap-4">
+<button class="text-on-primary hover:bg-white/10 p-2 rounded-full transition-transform active:scale-95" onclick="toggleSidebar()">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<h1 class="text-headline-md font-headline-md font-bold text-on-primary">ChatBot</h1>
+</div>
+<div class="flex items-center gap-4">
+<span class="hidden md:block text-headline-sm font-headline-sm font-bold text-on-primary">Banco Estado</span>
+<div class="w-10 h-10 bg-white rounded-lg flex items-center justify-center p-1 overflow-hidden shadow-sm">
+<img alt="BancoEstado Logo" class="w-full h-full object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCaBCCnoPQouO0sN1YEQkvlXS7gTEMWsMAD-NkMwLYiDrKPSP3QNz-hQTgpxppnUMHPcIOxTKOeT8yLiNVIqI02p2o2owwTkeba9pdA4SvXSKQ56-shJnCqUwkF4Lg9ixAWF-ZGccKc4WrvfuAnMNN3Tf0lzFLr7HthpKXcETlIJ4FdWX1Bo35xz7mDHN51oHpVTThlQUSQoGGxhdeTAB-N6N05enT824xAXZZjFEVFJ3cgpeXTiIJfwjzW2tPl_yEcu3gE1HaZlHc"/>
+</div>
+<button class="text-on-primary p-2">
+<span class="material-symbols-outlined">account_circle</span>
+</button>
+</div>
+</header>
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-0 w-[280px] h-full z-40 flex flex-col bg-surface-container-low shadow-xl sidebar-transition -translate-x-full pt-16" id="sidebar">
+<div class="p-6">
+<div class="flex flex-col gap-1 mb-8">
+<h2 class="text-headline-sm font-headline-sm font-bold text-primary">Hola, Juan Pérez</h2>
+<p class="text-body-md font-body-md text-on-surface-variant">¿En qué puedo ayudarte?</p>
+</div>
+<button class="w-full bg-primary-container text-on-primary-container font-bold py-3 px-4 rounded-xl flex items-center justify-center gap-2 mb-8 hover:bg-primary transition-colors shadow-sm">
+<span class="material-symbols-outlined">add_comment</span>
+                Iniciar Nuevo Chat
+            </button>
+<nav class="space-y-2">
+<div class="text-label-md font-label-md text-on-surface-variant/60 uppercase tracking-widest px-4 mb-2">Historial de Consultas</div>
+<a class="flex items-center gap-4 bg-primary-fixed text-on-primary-fixed-variant font-bold border-l-4 border-primary px-4 py-3" href="#">
+<span class="material-symbols-outlined">history</span>
+<div class="flex flex-col">
+<span class="text-body-md">Saldo de Cuenta</span>
+<span class="text-xs font-normal opacity-70">Hoy, 10:45 AM</span>
+</div>
+</a>
+<a class="flex items-center gap-4 text-on-surface-variant px-4 py-3 hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined">history</span>
+<div class="flex flex-col">
+<span class="text-body-md">Transferencia Fallida</span>
+<span class="text-xs font-normal opacity-70">Ayer, 3:20 PM</span>
+</div>
+</a>
+<a class="flex items-center gap-4 text-on-surface-variant px-4 py-3 hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined">account_balance_wallet</span>
+                    Mis Cuentas
+                </a>
+<a class="flex items-center gap-4 text-on-surface-variant px-4 py-3 hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined">help_outline</span>
+                    Soporte
+                </a>
+</nav>
+</div>
+<div class="mt-auto p-4 border-t border-outline-variant">
+<button class="flex items-center gap-4 text-on-surface-variant px-4 py-3 hover:bg-surface-container-high transition-colors w-full">
+<span class="material-symbols-outlined">logout</span>
+                Cerrar Sesión
+            </button>
+</div>
+</aside>
+<!-- Overlay for Sidebar -->
+<div class="fixed inset-0 bg-black/20 z-30 hidden opacity-0 transition-opacity" id="sidebar-overlay" onclick="toggleSidebar()"></div>
+<!-- Main Content -->
+<main class="relative flex flex-col items-center justify-center min-h-screen pt-16 px-margin-mobile">
+<div class="w-full max-w-[800px] flex flex-col items-center animate-in fade-in slide-in-from-bottom-4 duration-1000">
+<!-- Character and Speech Bubble Container -->
+<div class="flex flex-col md:flex-row items-center justify-center gap-4 mb-8 w-full">
+<!-- Robot Character (Full Body) -->
+<div class="floating-anim w-48 h-48 md:w-64 md:h-64 flex items-center justify-center">
+<img alt="Asistente Virtual" class="w-full h-full object-contain" src="https://lh3.googleusercontent.com/aida/AP1WRLs61xqz73TkEoCyGO7-X-JkfNHQeBFsriRXjcr7hkzpQwoU9FXkKwO3qmnJJSkdO4mLGrjYd8FOF-Z0ds6aVT6YJ79yHk8VpcZ958zzCDk8iXpsqY42RhIyNMG0ERge1Td6c6vgLhwmH5D9kfx5o2VPuy5P22t-jdBD4ErxXBowldsQ1_6oSvcBUbdUm-2nOoG9HlfRG215hxyQVLmvCyuCfZxIBhQzskp7zEfSBVYt_5f_gQYWZx-5_Wc"/>
+</div>
+<!-- Greeting Speech Bubble -->
+<div class="relative w-full max-w-sm p-6 bg-white rounded-3xl shadow-lg border border-outline-variant/30 text-left">
+<p class="text-headline-sm font-bold text-primary mb-2">¡Hola, Juan Pérez!</p>
+<p class="text-body-lg text-on-surface-variant">¿En qué puedo ayudarte hoy? Estoy listo para resolver tus dudas sobre productos y servicios.</p>
+<!-- Tail -->
+<div class="absolute -bottom-2 left-1/2 -translate-x-1/2 md:-left-2 md:top-1/2 md:-translate-y-1/2 md:bottom-auto w-4 h-4 bg-white border-b border-l border-outline-variant/30 rotate-45"></div>
+</div>
+</div>
+<!-- Input Section -->
+<div class="w-full max-w-[650px] space-y-8">
+<div class="flex items-center bg-white rounded-full px-6 py-4 chat-input-shadow border border-outline-variant/20 focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/10 transition-all">
+<span class="material-symbols-outlined text-primary mr-4" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+<input class="flex-grow bg-transparent border-none focus:ring-0 text-body-lg text-on-surface placeholder:text-on-surface-variant/50 outline-none" placeholder="Escribe acá tu consulta..." type="text"/>
+<button class="bg-primary-container text-on-primary w-12 h-12 rounded-full flex items-center justify-center transition-all active:scale-90 hover:shadow-lg hover:bg-primary">
+<span class="material-symbols-outlined">send</span>
+</button>
+</div>
+<!-- Quick Action Chips -->
+<div class="flex flex-wrap justify-center gap-3 animate-in fade-in slide-in-from-bottom-8 delay-500 duration-700">
+<button class="px-6 py-2.5 rounded-full border border-primary text-primary text-body-md font-medium hover:bg-primary-container hover:text-on-primary-container transition-all shadow-sm">Cómo sacar la CuentaRUT</button>
+<button class="px-6 py-2.5 rounded-full border border-primary text-primary text-body-md font-medium hover:bg-primary-container hover:text-on-primary-container transition-all shadow-sm">¿Qué hago si pierdo mi plástico?</button>
+<button class="px-6 py-2.5 rounded-full border border-primary text-primary text-body-md font-medium hover:bg-primary-container hover:text-on-primary-container transition-all shadow-sm">Requisitos para Tarjeta de Crédito</button>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-2 bg-white shadow-lg border-t border-outline-variant/30">
+<a class="flex flex-col items-center justify-center bg-primary-container/10 text-primary rounded-2xl px-6 py-1" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">chat</span>
+<span class="text-label-md font-label-md">Chat</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-6 py-1 hover:bg-surface-container-high transition-all active:scale-90" href="#">
+<span class="material-symbols-outlined">history</span>
+<span class="text-label-md font-label-md">Historial</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-6 py-1 hover:bg-surface-container-high transition-all active:scale-90" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="text-label-md font-label-md">Perfil</span>
+</a>
+</nav>
+<script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebar-overlay');
+            const isHidden = sidebar.classList.contains('-translate-x-full');
+            
+            if (isHidden) {
+                sidebar.classList.remove('-translate-x-full');
+                overlay.classList.remove('hidden');
+                setTimeout(() => overlay.classList.add('opacity-100'), 10);
+            } else {
+                sidebar.classList.add('-translate-x-full');
+                overlay.classList.remove('opacity-100');
+                setTimeout(() => overlay.classList.add('hidden'), 300);
+            }
+        }
+
+        // Handle enter key in input
+        const input = document.querySelector('input');
+        input.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' && input.value.trim() !== '') {
+                console.log('Mensaje enviado:', input.value);
+                input.value = '';
+            }
+        });
+    </script>
+</body></html>
